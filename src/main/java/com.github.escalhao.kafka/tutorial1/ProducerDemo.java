@@ -8,12 +8,14 @@ import org.slf4j.LoggerFactory;
 import java.util.Properties;
 
 public class ProducerDemo {
+    private static final String KAFKA_ADDRESS = "127.0.0.1:9092";
+
     public static void main(String[] args) {
         Logger logger = LoggerFactory.getLogger(ProducerDemo.class);
 
         // Create Producer properties
         Properties properties = new Properties();
-        properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
+        properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, KAFKA_ADDRESS);
         properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         properties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 

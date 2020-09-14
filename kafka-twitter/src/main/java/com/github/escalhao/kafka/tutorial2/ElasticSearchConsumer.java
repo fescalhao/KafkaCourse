@@ -1,6 +1,5 @@
 package com.github.escalhao.kafka.tutorial2;
 
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
@@ -14,6 +13,8 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.errors.WakeupException;
 import org.apache.kafka.common.serialization.StringDeserializer;
+import org.elasticsearch.action.bulk.BulkRequest;
+import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.client.RequestOptions;
@@ -38,7 +39,6 @@ public class ElasticSearchConsumer {
         Logger logger = LoggerFactory.getLogger(ElasticSearchConsumer.class.getName());
 
         final String index = "twitter";
-        final String type = "tweets";
         final String twitterTopic = "twitter.tweets";
 
         RestHighLevelClient client = createElasticSearchClient();
@@ -46,7 +46,10 @@ public class ElasticSearchConsumer {
         try (KafkaConsumer<String, String> consumer = createTwitterKafkaConsumer(twitterTopic)) {
             while (true) {
                 ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
+                BulkRequest bulkRequest = new BulkRequest();
+                Integer recordsCount = records.count();
 
+                logger.info(recordsCount + " received");
                 for (ConsumerRecord<String, String> record : records) {
                     String tweetId = getTweetId(record.value());
 
@@ -54,18 +57,25 @@ public class ElasticSearchConsumer {
                     .id(tweetId)
                     .source(record.value(), XContentType.JSON);
 
-                    IndexResponse indexResponse = client.index(indexRequest, RequestOptions.DEFAULT);
-                    logger.info(indexResponse.getId());
-                    logger.info(indexResponse.getIndex());
-                    logger.info(indexResponse.getResult().toString());
-
-                    Thread.sleep(1000);
+                    bulkRequest.add(indexRequest);
+                    Thread.sleep(100);
                 }
+
+                if (recordsCount > 0) {
+                    BulkResponse bulkItemResponses = client.bulk(bulkRequest, RequestOptions.DEFAULT);
+                    logger.info("Committing offset");
+                    consumer.commitSync();
+                    logger.info("Offset committed");
+                }
+
+
             }
         } catch (WakeupException ex) {
             logger.info("Received a Shutdown call");
         } catch (InterruptedException e) {
             e.printStackTrace();
+        } catch (NullPointerException e) {
+            logger.warn("Skipping bad data: ", e);
         } finally {
             logger.info("Consumer closed");
         }
@@ -84,12 +94,7 @@ public class ElasticSearchConsumer {
 
         RestClientBuilder clientBuilder = RestClient.builder(
                 new HttpHost(hostname, 443, "https"))
-                .setHttpClientConfigCallback(new RestClientBuilder.HttpClientConfigCallback() {
-                    @Override
-                    public HttpAsyncClientBuilder customizeHttpClient(HttpAsyncClientBuilder httpAsyncClientBuilder) {
-                        return httpAsyncClientBuilder.setDefaultCredentialsProvider(credentialsProvider);
-                    }
-                });
+                .setHttpClientConfigCallback(httpAsyncClientBuilder -> httpAsyncClientBuilder.setDefaultCredentialsProvider(credentialsProvider));
 
         return new RestHighLevelClient(clientBuilder);
     }
@@ -105,6 +110,8 @@ public class ElasticSearchConsumer {
         properties.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         properties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, grouId);
         properties.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+        properties.setProperty(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
+        properties.setProperty(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, "20");
 
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(properties);
         consumer.subscribe(Collections.singleton(topic));

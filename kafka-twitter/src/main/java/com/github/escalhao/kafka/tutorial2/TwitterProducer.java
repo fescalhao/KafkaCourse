@@ -68,7 +68,7 @@ public class TwitterProducer {
         Hosts hosebirdHosts = new HttpHosts(Constants.STREAM_HOST);
         StatusesFilterEndpoint hosebirdEndpoint = new StatusesFilterEndpoint();
 
-        List<String> terms = Lists.newArrayList("sol");
+        List<String> terms = Lists.newArrayList("music");
         hosebirdEndpoint.trackTerms(terms);
 //        List<Long> follows = Lists.newArrayList(2390025414L, 872060637559611392L);
 //        hosebirdEndpoint.followings(follows);

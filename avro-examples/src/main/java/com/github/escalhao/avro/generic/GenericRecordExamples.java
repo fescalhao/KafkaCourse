@@ -1,6 +1,18 @@
 package com.github.escalhao.avro.generic;
 
 import org.apache.avro.Schema;
+import org.apache.avro.file.DataFileReader;
+import org.apache.avro.file.DataFileWriter;
+import org.apache.avro.generic.GenericData.Record;
+import org.apache.avro.generic.GenericDatumReader;
+import org.apache.avro.generic.GenericDatumWriter;
+import org.apache.avro.generic.GenericRecord;
+import org.apache.avro.generic.GenericRecordBuilder;
+import org.apache.avro.io.DatumReader;
+import org.apache.avro.io.DatumWriter;
+
+import java.io.File;
+import java.io.IOException;
 
 public class GenericRecordExamples {
     public static void main(String[] args) {
@@ -52,8 +64,46 @@ public class GenericRecordExamples {
                 "    }\n" +
                 "  ]\n" +
                 "}";
+        String avroFilePath = "avro-examples/src/main/resources/avro/file/generic_customer.avro";
         Schema.Parser parser = new Schema.Parser();
         Schema schema = parser.parse(avroStringToParse);
 
+        GenericRecordBuilder recordBuilder = new GenericRecordBuilder(schema);
+        recordBuilder.set("first_name", "Felipe");
+        recordBuilder.set("last_name", "Escalhão");
+        recordBuilder.set("age", 28);
+        recordBuilder.set("height", 1.79f);
+        recordBuilder.set("weight", 63f);
+        recordBuilder.set("automated_email", true);
+
+        Record customer = recordBuilder.build();
+        System.out.println(customer);
+
+        final DatumWriter<GenericRecord> datumWriter = new GenericDatumWriter<>(schema);
+        DataFileWriter<GenericRecord> fileWriter = new DataFileWriter<>(datumWriter);
+        try {
+            fileWriter.create(customer.getSchema(), new File(avroFilePath));
+            fileWriter.append(customer);
+            fileWriter.flush();
+            System.out.println("Written generic_customer.avro");
+        } catch (IOException e) {
+            System.out.println("Error writting generic_customer.avro");
+            e.printStackTrace();
+        }
+
+        final File file = new File(avroFilePath);
+        final DatumReader<GenericRecord> datumReader = new GenericDatumReader<>();
+        try {
+            DataFileReader<GenericRecord> fileReader = new DataFileReader<>(file, datumReader);
+            GenericRecord record;
+            while (fileReader.hasNext()) {
+                record = fileReader.next();
+                System.out.println(record.toString());
+                System.out.println(record.get("first_name"));
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading generic_customer.avro");
+            e.printStackTrace();
+        }
     }
 }

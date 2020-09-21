@@ -1,0 +1,5 @@
+com/github/escalhao/avro/specific/SpecificRecordExamples.class
+com/github/escalhao/Customer.class
+com/github/escalhao/Customer$Builder.class
+com/github/escalhao/Customer$1.class
+com/github/escalhao/avro/generic/GenericRecordExamples.class

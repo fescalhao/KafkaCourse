@@ -60,7 +60,9 @@ public class TwitterProducer {
                     }
                 });
             }
+            producer.flush();
         }
+        producer.close();
     }
 
     private Client createTwitterClient(BlockingQueue<String> msgQueue) {

@@ -12,6 +12,7 @@
         <module>kafka-basics</module>
         <module>kafka-twitter</module>
         <module>avro-examples</module>
+        <module>kafka-avro</module>
     </modules>
 
     <properties>

@@ -1,0 +1,54 @@
+{
+  "type": "record",
+  "namespace": "com.github.escalhao",
+  "name": "Customer",
+  "doc": "Avro Schema to define a Customer",
+  "fields": [
+    {
+      "name": "first_name",
+      "type": "string",
+      "doc": "First Name of the customer"
+    },
+    {
+      "name": "middle_name",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Middle Name of the customer",
+      "default": null
+    },
+    {
+      "name": "last_name",
+      "type": "string",
+      "doc": "Last Name of the customer"
+    },
+    {
+      "name": "age",
+      "type": "int",
+      "doc": "Customer's age"
+    },
+    {
+      "name": "height",
+      "type": "float",
+      "doc": "Height in Centimeters"
+    },
+    {
+      "name": "weight",
+      "type": "float",
+      "doc": "Weight in Kilograms"
+    },
+    {
+      "name": "automated_email",
+      "type": "boolean",
+      "doc": "True if Automated email functionality is enabled",
+      "default": true
+    },
+    {
+      "name": "emails",
+      "type": {"type":"array", "items": "string"},
+      "doc": "List of Customer emails",
+      "default": []
+    }
+  ]
+}

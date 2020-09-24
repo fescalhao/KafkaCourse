@@ -15,8 +15,8 @@ import org.apache.avro.message.SchemaStore;
 /** Avro Schema to define a Customer */
 @org.apache.avro.specific.AvroGenerated
 public class Customer extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = 4700446657492132519L;
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Customer\",\"namespace\":\"com.github.escalhao\",\"doc\":\"Avro Schema to define a Customer\",\"fields\":[{\"name\":\"first_name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"First Name of the customer\"},{\"name\":\"middle_name\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"doc\":\"Middle Name of the customer\",\"default\":null},{\"name\":\"last_name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"Last Name of the customer\"},{\"name\":\"age\",\"type\":\"int\",\"doc\":\"Customer's age\"},{\"name\":\"height\",\"type\":\"float\",\"doc\":\"Height in Centimeters\"},{\"name\":\"weight\",\"type\":\"float\",\"doc\":\"Weight in Kilograms\"},{\"name\":\"automated_email\",\"type\":\"boolean\",\"doc\":\"True if Automated email functionality is enabled\",\"default\":true},{\"name\":\"emails\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},\"doc\":\"List of Customer emails\",\"default\":[]}]}");
+  private static final long serialVersionUID = 3821142187958164376L;
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Customer\",\"namespace\":\"com.github.escalhao\",\"doc\":\"Avro Schema to define a Customer\",\"fields\":[{\"name\":\"first_name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"First Name of the customer\"},{\"name\":\"middle_name\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"doc\":\"Middle Name of the customer\",\"default\":null},{\"name\":\"last_name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"Last Name of the customer\"},{\"name\":\"age\",\"type\":\"int\",\"doc\":\"Customer age\"},{\"name\":\"height\",\"type\":\"float\",\"doc\":\"Height in Centimeters\"},{\"name\":\"weight\",\"type\":\"float\",\"doc\":\"Weight in Kilograms\"},{\"name\":\"automated_email\",\"type\":\"boolean\",\"doc\":\"True if Automated email functionality is enabled\",\"default\":true},{\"name\":\"phone_number\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"doc\":\"Customer phone number (optional)\",\"default\":null}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static SpecificData MODEL$ = new SpecificData();
@@ -78,7 +78,7 @@ public class Customer extends org.apache.avro.specific.SpecificRecordBase implem
    private java.lang.String middle_name;
   /** Last Name of the customer */
    private java.lang.String last_name;
-  /** Customer's age */
+  /** Customer age */
    private int age;
   /** Height in Centimeters */
    private float height;
@@ -86,8 +86,8 @@ public class Customer extends org.apache.avro.specific.SpecificRecordBase implem
    private float weight;
   /** True if Automated email functionality is enabled */
    private boolean automated_email;
-  /** List of Customer emails */
-   private java.util.List<java.lang.String> emails;
+  /** Customer phone number (optional) */
+   private java.lang.String phone_number;
 
   /**
    * Default constructor.  Note that this does not initialize fields
@@ -101,13 +101,13 @@ public class Customer extends org.apache.avro.specific.SpecificRecordBase implem
    * @param first_name First Name of the customer
    * @param middle_name Middle Name of the customer
    * @param last_name Last Name of the customer
-   * @param age Customer's age
+   * @param age Customer age
    * @param height Height in Centimeters
    * @param weight Weight in Kilograms
    * @param automated_email True if Automated email functionality is enabled
-   * @param emails List of Customer emails
+   * @param phone_number Customer phone number (optional)
    */
-  public Customer(java.lang.String first_name, java.lang.String middle_name, java.lang.String last_name, java.lang.Integer age, java.lang.Float height, java.lang.Float weight, java.lang.Boolean automated_email, java.util.List<java.lang.String> emails) {
+  public Customer(java.lang.String first_name, java.lang.String middle_name, java.lang.String last_name, java.lang.Integer age, java.lang.Float height, java.lang.Float weight, java.lang.Boolean automated_email, java.lang.String phone_number) {
     this.first_name = first_name;
     this.middle_name = middle_name;
     this.last_name = last_name;
@@ -115,7 +115,7 @@ public class Customer extends org.apache.avro.specific.SpecificRecordBase implem
     this.height = height;
     this.weight = weight;
     this.automated_email = automated_email;
-    this.emails = emails;
+    this.phone_number = phone_number;
   }
 
   public org.apache.avro.specific.SpecificData getSpecificData() { return MODEL$; }
@@ -130,7 +130,7 @@ public class Customer extends org.apache.avro.specific.SpecificRecordBase implem
     case 4: return height;
     case 5: return weight;
     case 6: return automated_email;
-    case 7: return emails;
+    case 7: return phone_number;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
   }
@@ -146,7 +146,7 @@ public class Customer extends org.apache.avro.specific.SpecificRecordBase implem
     case 4: height = (java.lang.Float)value$; break;
     case 5: weight = (java.lang.Float)value$; break;
     case 6: automated_email = (java.lang.Boolean)value$; break;
-    case 7: emails = (java.util.List<java.lang.String>)value$; break;
+    case 7: phone_number = value$ != null ? value$.toString() : null; break;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
   }
@@ -183,7 +183,7 @@ public class Customer extends org.apache.avro.specific.SpecificRecordBase implem
 
   /**
    * Gets the value of the 'age' field.
-   * @return Customer's age
+   * @return Customer age
    */
   public int getAge() {
     return age;
@@ -222,11 +222,11 @@ public class Customer extends org.apache.avro.specific.SpecificRecordBase implem
 
 
   /**
-   * Gets the value of the 'emails' field.
-   * @return List of Customer emails
+   * Gets the value of the 'phone_number' field.
+   * @return Customer phone number (optional)
    */
-  public java.util.List<java.lang.String> getEmails() {
-    return emails;
+  public java.lang.String getPhoneNumber() {
+    return phone_number;
   }
 
 
@@ -278,7 +278,7 @@ public class Customer extends org.apache.avro.specific.SpecificRecordBase implem
     private java.lang.String middle_name;
     /** Last Name of the customer */
     private java.lang.String last_name;
-    /** Customer's age */
+    /** Customer age */
     private int age;
     /** Height in Centimeters */
     private float height;
@@ -286,8 +286,8 @@ public class Customer extends org.apache.avro.specific.SpecificRecordBase implem
     private float weight;
     /** True if Automated email functionality is enabled */
     private boolean automated_email;
-    /** List of Customer emails */
-    private java.util.List<java.lang.String> emails;
+    /** Customer phone number (optional) */
+    private java.lang.String phone_number;
 
     /** Creates a new Builder */
     private Builder() {
@@ -328,8 +328,8 @@ public class Customer extends org.apache.avro.specific.SpecificRecordBase implem
         this.automated_email = data().deepCopy(fields()[6].schema(), other.automated_email);
         fieldSetFlags()[6] = other.fieldSetFlags()[6];
       }
-      if (isValidValue(fields()[7], other.emails)) {
-        this.emails = data().deepCopy(fields()[7].schema(), other.emails);
+      if (isValidValue(fields()[7], other.phone_number)) {
+        this.phone_number = data().deepCopy(fields()[7].schema(), other.phone_number);
         fieldSetFlags()[7] = other.fieldSetFlags()[7];
       }
     }
@@ -368,8 +368,8 @@ public class Customer extends org.apache.avro.specific.SpecificRecordBase implem
         this.automated_email = data().deepCopy(fields()[6].schema(), other.automated_email);
         fieldSetFlags()[6] = true;
       }
-      if (isValidValue(fields()[7], other.emails)) {
-        this.emails = data().deepCopy(fields()[7].schema(), other.emails);
+      if (isValidValue(fields()[7], other.phone_number)) {
+        this.phone_number = data().deepCopy(fields()[7].schema(), other.phone_number);
         fieldSetFlags()[7] = true;
       }
     }
@@ -508,7 +508,7 @@ public class Customer extends org.apache.avro.specific.SpecificRecordBase implem
 
     /**
       * Gets the value of the 'age' field.
-      * Customer's age
+      * Customer age
       * @return The value.
       */
     public int getAge() {
@@ -518,7 +518,7 @@ public class Customer extends org.apache.avro.specific.SpecificRecordBase implem
 
     /**
       * Sets the value of the 'age' field.
-      * Customer's age
+      * Customer age
       * @param value The value of 'age'.
       * @return This builder.
       */
@@ -531,7 +531,7 @@ public class Customer extends org.apache.avro.specific.SpecificRecordBase implem
 
     /**
       * Checks whether the 'age' field has been set.
-      * Customer's age
+      * Customer age
       * @return True if the 'age' field has been set, false otherwise.
       */
     public boolean hasAge() {
@@ -541,7 +541,7 @@ public class Customer extends org.apache.avro.specific.SpecificRecordBase implem
 
     /**
       * Clears the value of the 'age' field.
-      * Customer's age
+      * Customer age
       * @return This builder.
       */
     public com.github.escalhao.Customer.Builder clearAge() {
@@ -679,45 +679,45 @@ public class Customer extends org.apache.avro.specific.SpecificRecordBase implem
     }
 
     /**
-      * Gets the value of the 'emails' field.
-      * List of Customer emails
+      * Gets the value of the 'phone_number' field.
+      * Customer phone number (optional)
       * @return The value.
       */
-    public java.util.List<java.lang.String> getEmails() {
-      return emails;
+    public java.lang.String getPhoneNumber() {
+      return phone_number;
     }
 
 
     /**
-      * Sets the value of the 'emails' field.
-      * List of Customer emails
-      * @param value The value of 'emails'.
+      * Sets the value of the 'phone_number' field.
+      * Customer phone number (optional)
+      * @param value The value of 'phone_number'.
       * @return This builder.
       */
-    public com.github.escalhao.Customer.Builder setEmails(java.util.List<java.lang.String> value) {
+    public com.github.escalhao.Customer.Builder setPhoneNumber(java.lang.String value) {
       validate(fields()[7], value);
-      this.emails = value;
+      this.phone_number = value;
       fieldSetFlags()[7] = true;
       return this;
     }
 
     /**
-      * Checks whether the 'emails' field has been set.
-      * List of Customer emails
-      * @return True if the 'emails' field has been set, false otherwise.
+      * Checks whether the 'phone_number' field has been set.
+      * Customer phone number (optional)
+      * @return True if the 'phone_number' field has been set, false otherwise.
       */
-    public boolean hasEmails() {
+    public boolean hasPhoneNumber() {
       return fieldSetFlags()[7];
     }
 
 
     /**
-      * Clears the value of the 'emails' field.
-      * List of Customer emails
+      * Clears the value of the 'phone_number' field.
+      * Customer phone number (optional)
       * @return This builder.
       */
-    public com.github.escalhao.Customer.Builder clearEmails() {
-      emails = null;
+    public com.github.escalhao.Customer.Builder clearPhoneNumber() {
+      phone_number = null;
       fieldSetFlags()[7] = false;
       return this;
     }
@@ -734,7 +734,7 @@ public class Customer extends org.apache.avro.specific.SpecificRecordBase implem
         record.height = fieldSetFlags()[4] ? this.height : (java.lang.Float) defaultValue(fields()[4]);
         record.weight = fieldSetFlags()[5] ? this.weight : (java.lang.Float) defaultValue(fields()[5]);
         record.automated_email = fieldSetFlags()[6] ? this.automated_email : (java.lang.Boolean) defaultValue(fields()[6]);
-        record.emails = fieldSetFlags()[7] ? this.emails : (java.util.List<java.lang.String>) defaultValue(fields()[7]);
+        record.phone_number = fieldSetFlags()[7] ? this.phone_number : (java.lang.String) defaultValue(fields()[7]);
         return record;
       } catch (org.apache.avro.AvroMissingFieldException e) {
         throw e;
@@ -787,18 +787,13 @@ public class Customer extends org.apache.avro.specific.SpecificRecordBase implem
 
     out.writeBoolean(this.automated_email);
 
-    long size0 = this.emails.size();
-    out.writeArrayStart();
-    out.setItemCount(size0);
-    long actualSize0 = 0;
-    for (java.lang.String e0: this.emails) {
-      actualSize0++;
-      out.startItem();
-      out.writeString(e0);
+    if (this.phone_number == null) {
+      out.writeIndex(0);
+      out.writeNull();
+    } else {
+      out.writeIndex(1);
+      out.writeString(this.phone_number);
     }
-    out.writeArrayEnd();
-    if (actualSize0 != size0)
-      throw new java.util.ConcurrentModificationException("Array-size written was " + size0 + ", but element count was " + actualSize0 + ".");
 
   }
 
@@ -826,19 +821,11 @@ public class Customer extends org.apache.avro.specific.SpecificRecordBase implem
 
       this.automated_email = in.readBoolean();
 
-      long size0 = in.readArrayStart();
-      java.util.List<java.lang.String> a0 = this.emails;
-      if (a0 == null) {
-        a0 = new SpecificData.Array<java.lang.String>((int)size0, SCHEMA$.getField("emails").schema());
-        this.emails = a0;
-      } else a0.clear();
-      SpecificData.Array<java.lang.String> ga0 = (a0 instanceof SpecificData.Array ? (SpecificData.Array<java.lang.String>)a0 : null);
-      for ( ; 0 < size0; size0 = in.arrayNext()) {
-        for ( ; size0 != 0; size0--) {
-          java.lang.String e0 = (ga0 != null ? ga0.peek() : null);
-          e0 = in.readString();
-          a0.add(e0);
-        }
+      if (in.readIndex() != 1) {
+        in.readNull();
+        this.phone_number = null;
+      } else {
+        this.phone_number = in.readString();
       }
 
     } else {
@@ -878,19 +865,11 @@ public class Customer extends org.apache.avro.specific.SpecificRecordBase implem
           break;
 
         case 7:
-          long size0 = in.readArrayStart();
-          java.util.List<java.lang.String> a0 = this.emails;
-          if (a0 == null) {
-            a0 = new SpecificData.Array<java.lang.String>((int)size0, SCHEMA$.getField("emails").schema());
-            this.emails = a0;
-          } else a0.clear();
-          SpecificData.Array<java.lang.String> ga0 = (a0 instanceof SpecificData.Array ? (SpecificData.Array<java.lang.String>)a0 : null);
-          for ( ; 0 < size0; size0 = in.arrayNext()) {
-            for ( ; size0 != 0; size0--) {
-              java.lang.String e0 = (ga0 != null ? ga0.peek() : null);
-              e0 = in.readString();
-              a0.add(e0);
-            }
+          if (in.readIndex() != 1) {
+            in.readNull();
+            this.phone_number = null;
+          } else {
+            this.phone_number = in.readString();
           }
           break;
 

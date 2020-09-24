@@ -1,2 +1,4 @@
+/home/fescalhao/IntelliJProjects/KafkaCourse/kafka-avro/src/main/java/com/github/escalhao/kafka/avro/v2/producer/KafkaAvroProducer.java
 /home/fescalhao/IntelliJProjects/KafkaCourse/kafka-avro/src/main/java/com/github/escalhao/kafka/avro/v1/producer/KafkaAvroProducer.java
 /home/fescalhao/IntelliJProjects/KafkaCourse/kafka-avro/target/generated-sources/avro/com/github/escalhao/Customer.java
+/home/fescalhao/IntelliJProjects/KafkaCourse/kafka-avro/src/main/java/com/github/escalhao/kafka/avro/v1/consumer/KafkaAvroConsumer.java

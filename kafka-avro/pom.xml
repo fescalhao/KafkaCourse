@@ -97,10 +97,6 @@
                         </goals>
                         <configuration>
                             <sourceDirectory>${project.basedir}/src/main/resources/avro/schema</sourceDirectory>
-                            <imports>
-                                <!--Alterar para os arquivos avsc corretos-->
-                                <import>${project.basedir}/src/main/resources/avro/schema/simple_customer.avsc</import>
-                            </imports>
                             <stringType>String</stringType>
                             <createSetters>false</createSetters>
                             <enableDecimalLogicalType>true</enableDecimalLogicalType>

@@ -1,4 +1,4 @@
-package com.github.escalhao.kafka.avro.v1.producer;
+package com.github.escalhao.kafka.avro.producer;
 
 import com.github.escalhao.Customer;
 import io.confluent.kafka.serializers.AbstractKafkaSchemaSerDeConfig;
@@ -9,7 +9,6 @@ import org.apache.kafka.common.serialization.StringSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
 import java.util.Properties;
 
 public class KafkaAvroProducer {
@@ -37,13 +36,14 @@ public class KafkaAvroProducer {
         KafkaProducer<String, Customer> kafkaProducer = new KafkaProducer<>(properties);
 
         Customer customer = Customer.newBuilder()
-            .setFirstName("Naty")
+            .setFirstName("Thiago")
             .setLastName("Bla3")
             .setAge(28)
             .setHeight(1.79f)
             .setWeight(63.0f)
             .setAutomatedEmail(false)
-            .setEmails(Arrays.asList("escalhao3@gmail.com","escalhao4@gmail.com"))
+            .setPhoneNumber("+55 01 23456-7891")
+//            .setEmails(Arrays.asList("escalhao3@gmail.com","escalhao4@gmail.com"))
             .build();
 
         ProducerRecord<String, Customer> customerRecord = new ProducerRecord<>(topic, customer);
